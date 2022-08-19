@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # Used to manage the app icon
+  flutter_launcher_icons: ^0.10.0
 
 dev_dependencies:
   flutter_test:
@@ -20,3 +22,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+flutter_icons:
+  windows:
+    generate: true
+    image_path: 'assets/icon/ic_launcher.png'
+    icon_size: 256 # min:48, max:256, default: 48

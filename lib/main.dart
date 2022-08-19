@@ -13,6 +13,7 @@ class ManyPinsApp extends StatelessWidget {
       title: 'Many Pins',
       theme: ThemeData(
         useMaterial3: true,
+        primarySwatch: Colors.pink,
       ),
       home: const Home(),
     );
