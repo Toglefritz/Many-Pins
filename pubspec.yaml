@@ -1,5 +1,5 @@
 name: many_pins
-description: A tool for tinkering with a microcontroller board's GPIO pins via Serial.
+description: A tool for tinkering with a microcontroller board's GPIO pins via serial.
 
 publish_to: 'none'
 

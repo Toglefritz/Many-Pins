@@ -1,16 +1,17 @@
-# many_pins
+# Many Pins
 
-A new Flutter project.
+A tool for tinkering with a microcontroller board's GPIO pins via serial.
 
-## Getting Started
+## What is this thing?
 
-This project is a starting point for a Flutter application.
+Perhaps you're prototyping a new electronics project, perhaps you're building a fancy robot, perhaps
+you're developing a new IoT widget, perhaps you're just learning or messing around. In any case, 
+while designing, programming, testing, and debugging hardware products, it can be useful to have a
+simple tool for bypassing all the layers and all the UI and all the business requirements for your
+application and just simply performing read/write operations on the microcontroller's GPIO pins.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+**Many Pins** is a desktop application that allows you to set the state of the GPIO pins on your
+microcontroller (for supported models at least) or read values from them. The app communicates with
+your microcontroller board over Serial. Bespoke firmware running on the microcontroller will
+receive the serial communication and either set the digital or analog state of a target GPIO pin
+or send back the digital or analog read value from a target GPIO pin.
