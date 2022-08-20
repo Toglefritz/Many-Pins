@@ -13,6 +13,8 @@ dependencies:
     sdk: flutter
   # Used to manage the app icon
   flutter_launcher_icons: ^0.10.0
+  # A Flutter wrapper for the libserial library
+  flutter_libserialport: ^0.2.3
 
 dev_dependencies:
   flutter_test:

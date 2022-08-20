@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:many_pins/screens/available_ports_selection/available_ports_selection_route.dart';
 
 void main() {
   runApp(const ManyPinsApp());
@@ -11,36 +12,12 @@ class ManyPinsApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Many Pins',
+      themeMode: ThemeMode.system,
       theme: ThemeData(
         useMaterial3: true,
         primarySwatch: Colors.pink,
       ),
-      home: const Home(),
+      home: const AvailablePortsSelectionRoute(),
     );
-  }
-}
-
-/// The Model Widget defines external parameters.
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
-
-  @override
-  HomeController createState() => HomeController();
-}
-
-/// The Controller handles the staHomeControllers logic.
-class HomeController extends State<Home> {
-  @override
-  Widget build(BuildContext context) => HomeView(this);
-}
-
-/// The View is purely declarative.
-class HomeView extends StatelessWidget {
-  final HomeController state;
-  const HomeView(this.state, {Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold();
   }
 }
