@@ -4,8 +4,7 @@ import 'available_ports_selection_view.dart';
 import 'package:flutter_libserialport/flutter_libserialport.dart';
 
 /// Controller for [AvailablePortsSelectionRoute].
-class AvailablePortsSelectionController
-    extends State<AvailablePortsSelectionRoute> {
+class AvailablePortsSelectionController extends State<AvailablePortsSelectionRoute> {
   // A list of [SerialPort]s available from the system.
   List<SerialPort> availablePorts = [];
 

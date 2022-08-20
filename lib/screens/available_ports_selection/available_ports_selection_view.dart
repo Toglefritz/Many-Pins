@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../components/brightness_toggle.dart';
 import 'available_ports_selection_controller.dart';
 import 'components/serial_port_list.dart';
 
@@ -15,21 +16,22 @@ class AvailablePortsSelectionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Available Serial Ports'),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Available Serial Ports'),
+        actions: const [
+          BrightnessToggle(),
+        ],
+      ),
+      body: Scrollbar(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+          child: SerialPortList(state: state),
         ),
-        body: Scrollbar(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-            child: SerialPortList(state: state),
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: state.initPorts,
-          child: const Icon(Icons.refresh),
-        ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: state.initPorts,
+        child: const Icon(Icons.refresh),
       ),
     );
   }

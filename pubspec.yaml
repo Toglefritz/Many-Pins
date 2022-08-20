@@ -15,6 +15,10 @@ dependencies:
   flutter_launcher_icons: ^0.10.0
   # A Flutter wrapper for the libserial library
   flutter_libserialport: ^0.2.3
+  # Stores settings that persist between sessions
+  shared_preferences: ^2.0.15
+  # A wrapper around InheritedWidget
+  provider: ^6.0.3
 
 dev_dependencies:
   flutter_test:

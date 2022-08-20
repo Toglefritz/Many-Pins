@@ -13,6 +13,5 @@ class AvailablePortsSelectionRoute extends StatefulWidget {
   const AvailablePortsSelectionRoute({Key? key}) : super(key: key);
 
   @override
-  AvailablePortsSelectionController createState() =>
-      AvailablePortsSelectionController();
+  AvailablePortsSelectionController createState() => AvailablePortsSelectionController();
 }
