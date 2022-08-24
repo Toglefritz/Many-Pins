@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../components/brightness_toggle.dart';
+import '../../values/strings.dart';
 import 'available_ports_selection_controller.dart';
 import 'components/serial_port_list.dart';
 
@@ -18,7 +19,7 @@ class AvailablePortsSelectionView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Available Serial Ports'),
+        title: const Text(Strings.availablePortsPageTitle),
         actions: const [
           BrightnessToggle(),
         ],
