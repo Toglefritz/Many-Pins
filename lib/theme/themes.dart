@@ -13,6 +13,7 @@ class Themes {
         useMaterial3: true,
         brightness: Brightness.dark,
         scaffoldBackgroundColor: const Color(0xFF212121),
+        primaryColor: Colors.white70,
       );
     }
     // Light theme
@@ -20,6 +21,7 @@ class Themes {
       themeData = ThemeData(
         useMaterial3: true,
         brightness: Brightness.light,
+        primaryColor: Colors.black54,
       );
     }
 

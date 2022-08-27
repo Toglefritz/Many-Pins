@@ -18,16 +18,7 @@ class FirmwareUploadView extends StatelessWidget {
           BrightnessToggle(),
         ],
       ),
-      body: Scrollbar(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-          child: SerialPortList(state: state),
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: state.initPorts,
-        child: const Icon(Icons.refresh),
-      ),
+      body: SizedBox.shrink(),
     );
   }
 }

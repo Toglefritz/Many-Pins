@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:many_pins/screens/app_loading/app_loading_route.dart';
 import 'package:many_pins/screens/available_ports_selection/available_ports_selection_route.dart';
+import 'package:many_pins/screens/firmware_upload/firmware_upload_route.dart';
 import 'package:many_pins/theme/theme_preference_provider.dart';
 import 'package:many_pins/theme/themes.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +42,11 @@ class ManyPinsAppState extends State<ManyPinsApp> {
             debugShowCheckedModeBanner: false,
             themeMode: themePreference.darkTheme == true ? ThemeMode.dark : ThemeMode.light,
             theme: Themes.getThemeData(themePreference.darkTheme, context),
-            home: const AvailablePortsSelectionRoute(),
+            routes: {
+              '/': (context) => const AppLoadingRoute(),
+              '/availablePortsSelection': (context) => const AvailablePortsSelectionRoute(),
+              '/firmwareUpload': (context) => const FirmwareUploadRoute(),
+            },
           );
         },
       ),

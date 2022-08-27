@@ -61,8 +61,6 @@
 /// Provides initial configuration for the sketch
 void setup() {
   Serial.begin(115200);  // Set up Serial library at 115200 bps
-
-  debugPrint("\nDEBUGGING ENABLED \n");
 }
 
 /// Sends prints over serial when debugging is enabled
