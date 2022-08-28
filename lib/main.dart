@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:many_pins/screens/app_loading/app_loading_route.dart';
 import 'package:many_pins/screens/arduino_cli_install/arduino_cli_install_route.dart';
 import 'package:many_pins/screens/available_ports_selection/available_ports_selection_route.dart';
+import 'package:many_pins/screens/edit_path_details/edit_path_details_route.dart';
 import 'package:many_pins/screens/firmware_upload/firmware_upload_route.dart';
 import 'package:many_pins/theme/theme_preference_provider.dart';
 import 'package:many_pins/theme/themes.dart';
@@ -48,6 +49,7 @@ class ManyPinsAppState extends State<ManyPinsApp> {
               '/availablePortsSelection': (context) => const AvailablePortsSelectionRoute(),
               '/firmwareUpload': (context) => const FirmwareUploadRoute(),
               '/install': (context) => const ArduinoCliInstallRoute(),
+              '/edit_path': (context) => const EditPathDetailsRoute(),
             },
           );
         },

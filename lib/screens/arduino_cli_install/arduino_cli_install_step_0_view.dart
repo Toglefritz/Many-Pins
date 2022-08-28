@@ -20,25 +20,28 @@ class ArduinoCliInstallStep0View extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 30),
-              child: Text(
-                Strings.cliNotInstalledExplainer,
-                textAlign: TextAlign.center,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 30),
+                child: Text(
+                  Strings.cliNotInstalledExplainer,
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-            Image.asset(
-              'assets/arduino_cli_logo.png',
-              width: 400,
-            ),
-            ClearButton(
-              onPressed: state.advanceToNextStep,
-              text: Strings.getStarted.toUpperCase(),
-            ),
-          ],
+              Image.asset(
+                'assets/arduino_cli_logo.png',
+                width: 400,
+              ),
+              ClearButton(
+                onPressed: state.advanceToNextStep,
+                text: Strings.getStarted.toUpperCase(),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -21,57 +21,60 @@ class ArduinoCliInstallStep1View extends StatelessWidget {
         ],
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Expanded(
-              flex: 1,
-              child: SizedBox.shrink(),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 20),
-              child: Text(
-                Strings.step1,
-                style: TextStyle(fontSize: 42),
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Expanded(
+                flex: 1,
+                child: SizedBox.shrink(),
               ),
-            ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 30),
-              child: Text(
-                Strings.downloadCli,
-                textAlign: TextAlign.center,
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 20),
+                child: Text(
+                  Strings.step1,
+                  style: TextStyle(fontSize: 42),
+                ),
               ),
-            ),
-            ClearButton(
-              onPressed: state.downloadCli,
-              text: Strings.download.toUpperCase(),
-            ),
-            Expanded(
-              flex: 1,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const StepIndicator(filled: true),
-                        GestureDetector(
-                          onTap: () => state.goToStep(2),
-                          child: const StepIndicator(filled: false),
-                        ),
-                        GestureDetector(
-                          onTap: () => state.goToStep(3),
-                          child: const StepIndicator(filled: false),
-                        ),
-                      ],
+              const Padding(
+                padding: EdgeInsets.symmetric(vertical: 30),
+                child: Text(
+                  Strings.downloadCli,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              ClearButton(
+                onPressed: state.downloadCli,
+                text: Strings.download.toUpperCase(),
+              ),
+              Expanded(
+                flex: 1,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const StepIndicator(filled: true),
+                          GestureDetector(
+                            onTap: () => state.goToStep(2),
+                            child: const StepIndicator(filled: false),
+                          ),
+                          GestureDetector(
+                            onTap: () => state.goToStep(3),
+                            child: const StepIndicator(filled: false),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
