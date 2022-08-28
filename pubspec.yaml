@@ -19,6 +19,13 @@ dependencies:
   shared_preferences: ^2.0.15
   # A wrapper around InheritedWidget
   provider: ^6.0.3
+  # Provides custom fonts
+  google_fonts: ^3.0.1
+  # Used to launch URLs and other links
+  url_launcher: ^6.1.5
+  url_launcher_windows: ^2.0.2
+  # Used to access common system locations
+  path_provider: ^2.0.11
 
 dev_dependencies:
   flutter_test:
@@ -28,6 +35,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/
 
 flutter_icons:
   windows:
