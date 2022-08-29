@@ -1,6 +1,6 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
-
 import 'models/arduino_cli_version.dart';
 
 /// This service provides methods that interact with the Arduino CLI, which is used to interact with
@@ -11,15 +11,41 @@ import 'models/arduino_cli_version.dart';
 /// functions. Interacting with the Arduino CLI is one of two major pillars for the functionality of the Many Pins
 /// app, the other is serial communication with the target microcontroller.
 class ArduinoCLI {
+  /// Starts a process with the Arduino CLI with the provided command and provides the response in JSON format
+  /// or rethrows exceptions.
+  static Future<Map<String, dynamic>> runCliProcess(String command) async {
+    try {
+      Directory workingDirectory = Directory.current;
+
+      ProcessResult result = await Process.run(
+        '$command --format json',
+        [],
+        runInShell: true,
+        workingDirectory: workingDirectory.absolute.path,
+        environment: {
+          'path': '${workingDirectory.absolute.path}/lib/services/arduino_cli/arduino-cli_0.26.0_Windows_64bit'
+        },
+      );
+
+      debugPrint('Retrieved Arduino CLI version: ${result.stdout}');
+
+      Map<String, dynamic> responseJson = jsonDecode(result.stdout);
+
+      return responseJson;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
   /// Check the Arduino CLI version
   static Future<ArduinoCLIVersion?> checkArduinoCliVersion() async {
     // Try to get the Arduino CLI version
     try {
-      ProcessResult result = await Process.run('arduino-cli version', ['--format json']);
+      Map<String, dynamic> responseJson = await runCliProcess('arduino-cli version');
 
-      debugPrint('Retrieved Arduino CLI version: ${result.stdout}');
+      debugPrint('Retrieved Arduino CLI version: $responseJson');
 
-      return null; // TODO parse command response and return version info
+      return ArduinoCLIVersion.fromJson(responseJson);
     }
     // The call to get the version failed
     catch (e) {
@@ -32,12 +58,5 @@ class ArduinoCLI {
 
       return null;
     }
-  }
-
-  /// Update the local cache platforms and libraries available to the Arduino CLI
-  static Future<void> updateIndex() async {
-    var result = await Process.run('arduino-cli core update-index', ['-format json']);
-
-    debugPrint(result.toString());
   }
 }
