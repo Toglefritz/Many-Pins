@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:many_pins/screens/app_loading/app_loading_route.dart';
 import 'package:many_pins/screens/available_ports_selection/available_ports_selection_route.dart';
 import 'package:many_pins/screens/firmware_upload/firmware_upload_route.dart';
+import 'package:many_pins/screens/update_index/update_index_route.dart';
 import 'package:many_pins/theme/theme_preference_provider.dart';
 import 'package:many_pins/theme/themes.dart';
 import 'package:provider/provider.dart';
@@ -46,6 +47,7 @@ class ManyPinsAppState extends State<ManyPinsApp> {
               '/': (context) => const AppLoadingRoute(),
               '/availablePortsSelection': (context) => const AvailablePortsSelectionRoute(),
               '/firmwareUpload': (context) => const FirmwareUploadRoute(),
+              '/update_index': (context) => const UpdateIndexRoute()
             },
           );
         },

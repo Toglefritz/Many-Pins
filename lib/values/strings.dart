@@ -34,5 +34,7 @@ class Strings {
   static const String step2 = 'Step 2';
   static const String step3 = 'Step 3';
   static const String unzipAndMove = 'Unzip and move';
+  static const String updatingArduinoCliIndex = 'Updating Arduino CLI Index';
+  static const String updatingCliIndex = 'Updating CLI index...';
   static const String verifyInstallation = 'Verify installation';
 }

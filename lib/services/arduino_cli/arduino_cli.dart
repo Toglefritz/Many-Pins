@@ -27,8 +27,6 @@ class ArduinoCLI {
         },
       );
 
-      debugPrint('Retrieved Arduino CLI version: ${result.stdout}');
-
       Map<String, dynamic> responseJson = jsonDecode(result.stdout);
 
       return responseJson;
@@ -51,12 +49,31 @@ class ArduinoCLI {
     catch (e) {
       debugPrint('Failed to check the Arduino CLI version with error, $e');
 
-      // A [ProcessException] typically indicates that the Arduino CLI is not installed
-      if (e is ProcessException) {
-        debugPrint('The Arduino CLI is not installed');
-      }
-
       return null;
+    }
+  }
+
+  /// Updates the local cache of available platforms and libraries
+  static Future<void> updateCliIndex() async {
+    // Try to get the Arduino CLI version
+    try {
+      Directory workingDirectory = Directory.current;
+
+      await Process.run(
+        'arduino-cli core update-index',
+        [],
+        runInShell: true,
+        workingDirectory: workingDirectory.absolute.path,
+        environment: {
+          'path': '${workingDirectory.absolute.path}/lib/services/arduino_cli/arduino-cli_0.26.0_Windows_64bit'
+        },
+      );
+
+      debugPrint('Updated Arduino CLI index');
+    }
+    // The call to get the version failed
+    catch (e) {
+      debugPrint('Failed to update the Arduino CLI index with error, $e');
     }
   }
 }

@@ -21,7 +21,7 @@ class AppLoadingController extends State<AppLoadingRoute> {
     // A null value indicates that the Arduino CLI is not installed
     if (versionInfo != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.pushNamed(context, '/availablePortsSelection');
+        Navigator.pushNamed(context, '/update_index');
       });
     } else {
       // TODO show Arduino CLI error
