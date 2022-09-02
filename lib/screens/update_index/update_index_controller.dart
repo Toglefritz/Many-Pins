@@ -18,7 +18,7 @@ class UpdateIndexController extends State<UpdateIndexRoute> {
     await ArduinoCLI.updateCliIndex();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      //Navigator.pushNamed(context, '/update_index');
+      Navigator.pushNamed(context, '/available_ports_selection');
     });
   }
 

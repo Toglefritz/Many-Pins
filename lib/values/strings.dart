@@ -19,6 +19,7 @@ class Strings {
   static const String initializing = 'Initializing';
   static const String installArduinoCli = 'Install Arduino CLI';
   static const String moreDetails = 'More details';
+  static const String noPorts = 'No devices found';
   static const String openEnvironmentVariables = 'Open Environment Variables';
   static const String openEnvironmentVariablesDescription =
       'Click the "Environment Variables..." button to access environment variables.';
@@ -27,6 +28,7 @@ class Strings {
       'Start by opening your System Properties to edit your PATH. Do this by searching for "environment" in the task bar.';
   static const String pathVariableDescription =
       'The system\'s PATH environment lists the locations of executable files so that they can be used from the command line without typing the full file path every time.';
+  static const String scanAgain = 'Scan again';
   static const String selectSystemPath = 'Select system path';
   static const String selectSystemPathDescription =
       'From the lower of the two subsections, select the "Path" variable. Then click the "Edit" button below the subsection.';

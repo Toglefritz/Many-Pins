@@ -45,9 +45,9 @@ class ManyPinsAppState extends State<ManyPinsApp> {
             theme: Themes.getThemeData(themePreference.darkTheme, context),
             routes: {
               '/': (context) => const AppLoadingRoute(),
-              '/availablePortsSelection': (context) => const AvailablePortsSelectionRoute(),
-              '/firmwareUpload': (context) => const FirmwareUploadRoute(),
-              '/update_index': (context) => const UpdateIndexRoute()
+              '/firmware_upload': (context) => const FirmwareUploadRoute(),
+              '/update_index': (context) => const UpdateIndexRoute(),
+              '/available_ports_selection': (context) => const AvailablePortsSelectionRoute(),
             },
           );
         },

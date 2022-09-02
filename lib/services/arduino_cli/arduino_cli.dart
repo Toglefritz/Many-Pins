@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:many_pins/services/arduino_cli/models/serial_device.dart';
 import 'models/arduino_cli_version.dart';
 
 /// This service provides methods that interact with the Arduino CLI, which is used to interact with
@@ -13,7 +14,7 @@ import 'models/arduino_cli_version.dart';
 class ArduinoCLI {
   /// Starts a process with the Arduino CLI with the provided command and provides the response in JSON format
   /// or rethrows exceptions.
-  static Future<Map<String, dynamic>> runCliProcess(String command) async {
+  static Future<dynamic> runCliProcess(String command) async {
     try {
       Directory workingDirectory = Directory.current;
 
@@ -27,7 +28,7 @@ class ArduinoCLI {
         },
       );
 
-      Map<String, dynamic> responseJson = jsonDecode(result.stdout);
+      dynamic responseJson = jsonDecode(result.stdout);
 
       return responseJson;
     } catch (e) {
@@ -39,7 +40,7 @@ class ArduinoCLI {
   static Future<ArduinoCLIVersion?> checkArduinoCliVersion() async {
     // Try to get the Arduino CLI version
     try {
-      Map<String, dynamic> responseJson = await runCliProcess('arduino-cli version');
+      Map<String, dynamic> responseJson = await runCliProcess('arduino-cli version') as Map<String, dynamic>;
 
       debugPrint('Retrieved Arduino CLI version: $responseJson');
 
@@ -74,6 +75,34 @@ class ArduinoCLI {
     // The call to get the version failed
     catch (e) {
       debugPrint('Failed to update the Arduino CLI index with error, $e');
+    }
+  }
+
+  /// Get a list of serial ports available on the host machine on which an Arduino-compatible board is detected
+  static Future<List<SerialDevice>?> getSerialPorts() async {
+    // Try to get the Arduino CLI version
+    try {
+      List<dynamic> responseJson = await runCliProcess('arduino-cli board list') as List<dynamic>;
+
+      debugPrint('Retrieved serial ports list: $responseJson');
+
+      List<SerialDevice> ports = [];
+      for (Map<String, dynamic> port in responseJson) {
+        SerialDevice device = SerialDevice.fromJson(port);
+
+        // Check if there is an Arduino board on the port
+        if (device.matchingBoards != null && device.matchingBoards?.isNotEmpty == true) {
+          ports.add(SerialDevice.fromJson(port));
+        }
+      }
+
+      return ports;
+    }
+    // The call to get the version failed
+    catch (e) {
+      debugPrint('Failed to retrieve serial ports list, $e');
+
+      return null;
     }
   }
 }
