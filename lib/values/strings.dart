@@ -15,6 +15,7 @@ class Strings {
   static const String extractCliInstructions =
       'The Arduino CLI should now be in your downloads folder. So, the next step is to extract that .zip folder and move its contents to a location you can remember for the next step.';
   static const String firmwareUploadPageTitle = 'Firmware Upload';
+  static const String firmwareUploadWarning = 'Uploading firmware will erase the sketch currently on the board.';
   static const String getStarted = 'Get Started';
   static const String initializing = 'Initializing';
   static const String installArduinoCli = 'Install Arduino CLI';
@@ -38,5 +39,6 @@ class Strings {
   static const String unzipAndMove = 'Unzip and move';
   static const String updatingArduinoCliIndex = 'Updating Arduino CLI Index';
   static const String updatingCliIndex = 'Updating CLI index...';
+  static const String upload = 'Upload';
   static const String verifyInstallation = 'Verify installation';
 }

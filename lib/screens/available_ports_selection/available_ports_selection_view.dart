@@ -63,18 +63,21 @@ class AvailablePortsSelectionView extends StatelessWidget {
       ),
       body: FutureBuilder<List<SerialDevice>?>(
           future: ArduinoCLI.getSerialPorts(),
-          builder: (BuildContext context, AsyncSnapshot<List<SerialDevice>?> ports) {
-            if (ports.hasData) {
-              if (ports.data?.isEmpty == true) {
+          builder: (BuildContext context, AsyncSnapshot<List<SerialDevice>?> devices) {
+            if (devices.hasData) {
+              if (devices.data?.isEmpty == true) {
                 return const NoPortsWarning();
               } else {
                 return Center(
                   child: ListView.builder(
-                    itemCount: ports.data?.length,
+                    itemCount: devices.data?.length,
                     shrinkWrap: true,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (BuildContext context, int index) {
-                      return DiscoveredDevice(device: ports.data?[index]);
+                      return GestureDetector(
+                        onTap: () => Navigator.pushNamed(context, '/firmware_upload', arguments: devices.data?[index]),
+                        child: DiscoveredDevice(device: devices.data?[index]),
+                      );
                     },
                   ),
                 );

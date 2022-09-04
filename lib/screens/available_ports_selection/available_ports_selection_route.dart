@@ -10,6 +10,8 @@ import 'available_ports_selection_controller.dart';
 /// of ports, including information about the serial ports when it is available
 /// from the system.
 class AvailablePortsSelectionRoute extends StatefulWidget {
+  static const String routeName = '/available_ports_selection';
+
   const AvailablePortsSelectionRoute({Key? key}) : super(key: key);
 
   @override

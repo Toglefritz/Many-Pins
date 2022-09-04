@@ -3,6 +3,7 @@ import 'package:many_pins/screens/app_loading/app_loading_route.dart';
 import 'package:many_pins/screens/available_ports_selection/available_ports_selection_route.dart';
 import 'package:many_pins/screens/firmware_upload/firmware_upload_route.dart';
 import 'package:many_pins/screens/update_index/update_index_route.dart';
+import 'package:many_pins/services/arduino_cli/models/serial_device.dart';
 import 'package:many_pins/theme/theme_preference_provider.dart';
 import 'package:many_pins/theme/themes.dart';
 import 'package:provider/provider.dart';
@@ -43,11 +44,35 @@ class ManyPinsAppState extends State<ManyPinsApp> {
             debugShowCheckedModeBanner: false,
             themeMode: themePreference.darkTheme == true ? ThemeMode.dark : ThemeMode.light,
             theme: Themes.getThemeData(themePreference.darkTheme, context),
-            routes: {
-              '/': (context) => const AppLoadingRoute(),
-              '/firmware_upload': (context) => const FirmwareUploadRoute(),
-              '/update_index': (context) => const UpdateIndexRoute(),
-              '/available_ports_selection': (context) => const AvailablePortsSelectionRoute(),
+            home: const AppLoadingRoute(),
+            onGenerateRoute: (settings) {
+              switch (settings.name) {
+                case UpdateIndexRoute.routeName:
+                  return MaterialPageRoute(
+                    builder: (context) {
+                      return const UpdateIndexRoute();
+                    },
+                  );
+                case AvailablePortsSelectionRoute.routeName:
+                  return MaterialPageRoute(
+                    builder: (context) {
+                      return const AvailablePortsSelectionRoute();
+                    },
+                  );
+                case FirmwareUploadRoute.routeName:
+                  final arguments = settings.arguments as SerialDevice;
+
+                  return MaterialPageRoute(
+                    builder: (context) {
+                      return FirmwareUploadRoute(
+                        device: arguments,
+                      );
+                    },
+                  );
+                default:
+                  assert(false, 'Need to implement ${settings.name}');
+                  return null;
+              }
             },
           );
         },
