@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:many_pins/screens/app_loading/app_loading_route.dart';
 import 'package:many_pins/screens/available_ports_selection/available_ports_selection_route.dart';
-import 'package:many_pins/screens/firmware_upload/firmware_upload_route.dart';
+import 'package:many_pins/screens/firmware_upload_intro/firmware_upload_intro_route.dart';
+import 'package:many_pins/screens/install_core/install_core_route.dart';
 import 'package:many_pins/screens/update_index/update_index_route.dart';
 import 'package:many_pins/services/arduino_cli/models/serial_device.dart';
 import 'package:many_pins/theme/theme_preference_provider.dart';
@@ -59,12 +60,22 @@ class ManyPinsAppState extends State<ManyPinsApp> {
                       return const AvailablePortsSelectionRoute();
                     },
                   );
-                case FirmwareUploadRoute.routeName:
+                case FirmwareUploadIntroRoute.routeName:
                   final arguments = settings.arguments as SerialDevice;
 
                   return MaterialPageRoute(
                     builder: (context) {
-                      return FirmwareUploadRoute(
+                      return FirmwareUploadIntroRoute(
+                        device: arguments,
+                      );
+                    },
+                  );
+                case InstallCoreRoute.routeName:
+                  final arguments = settings.arguments as SerialDevice;
+
+                  return MaterialPageRoute(
+                    builder: (context) {
+                      return InstallCoreRoute(
                         device: arguments,
                       );
                     },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:many_pins/screens/available_ports_selection/available_ports_selection_route.dart';
 import '../../../values/strings.dart';
 
 /// A warning/message displayed if no serial ports to which Arduino boards are attached are detected
@@ -33,7 +34,7 @@ class NoPortsWarning extends StatelessWidget {
                   Icons.refresh,
                   size: 32,
                 ),
-                onPressed: () => Navigator.pushReplacementNamed(context, '/available_ports_selection'),
+                onPressed: () => Navigator.pushReplacementNamed(context, AvailablePortsSelectionRoute.routeName),
               ),
             ),
           ],

@@ -12,8 +12,11 @@ import 'models/arduino_cli_version.dart';
 /// functions. Interacting with the Arduino CLI is one of two major pillars for the functionality of the Many Pins
 /// app, the other is serial communication with the target microcontroller.
 class ArduinoCLI {
+  // The path to the Many Pins companion sketch
+  static const String sketchPath = '../../sketches/companion_sketch';
+
   /// Starts a process with the Arduino CLI with the provided command and provides the response in JSON format
-  /// or rethrows exceptions.
+  /// or rethrows exceptions
   static Future<dynamic> runCliProcess(String command) async {
     try {
       Directory workingDirectory = Directory.current;
@@ -24,7 +27,7 @@ class ArduinoCLI {
         runInShell: true,
         workingDirectory: workingDirectory.absolute.path,
         environment: {
-          'path': '${workingDirectory.absolute.path}/lib/services/arduino_cli/arduino-cli_0.26.0_Windows_64bit'
+          'path': '${workingDirectory.absolute.path}/lib/services/arduino_cli/arduino-cli_0.27.1_Windows_64bit'
         },
       );
 
@@ -38,7 +41,6 @@ class ArduinoCLI {
 
   /// Check the Arduino CLI version
   static Future<ArduinoCLIVersion?> checkArduinoCliVersion() async {
-    // Try to get the Arduino CLI version
     try {
       Map<String, dynamic> responseJson = await runCliProcess('arduino-cli version') as Map<String, dynamic>;
 
@@ -56,7 +58,6 @@ class ArduinoCLI {
 
   /// Updates the local cache of available platforms and libraries
   static Future<void> updateCliIndex() async {
-    // Try to get the Arduino CLI version
     try {
       Directory workingDirectory = Directory.current;
 
@@ -80,7 +81,6 @@ class ArduinoCLI {
 
   /// Get a list of serial ports available on the host machine on which an Arduino-compatible board is detected
   static Future<List<SerialDevice>?> getSerialPorts() async {
-    // Try to get the Arduino CLI version
     try {
       List<dynamic> responseJson = await runCliProcess('arduino-cli board list') as List<dynamic>;
 
@@ -103,6 +103,49 @@ class ArduinoCLI {
       debugPrint('Failed to retrieve serial ports list, $e');
 
       return null;
+    }
+  }
+
+  /// Installs a board definition core for the Arduino CLI
+  static Future<bool> installCore(String fqbn) async {
+    try {
+      await runCliProcess('arduino-cli core install $fqbn');
+
+      debugPrint('Successfully installed the $fqbn core definition');
+
+      return true;
+    }
+    // The call to get the version failed
+    catch (e) {
+      debugPrint('Failed to install the core definition with error, $e');
+
+      return false;
+    }
+  }
+
+  /// Installs a board definition core for the Arduino CLI
+  static Future<void> compileSketch(SerialDevice targetDevice) async {
+    try {
+      await runCliProcess('arduino-cli compile --fqbn ${targetDevice.matchingBoards?[0].fqbn} $sketchPath');
+
+      debugPrint('Successfully compiled the sketch');
+    }
+    // The call to get the version failed
+    catch (e) {
+      debugPrint('Failed to compile the sketch with error, $e');
+    }
+  }
+
+  /// Uploads the Many Pins companion Arduino sketch to the target MCU
+  static Future<void> uploadFirmware(SerialDevice targetDevice) async {
+    try {
+      await runCliProcess('arduino-cli board list');
+
+      debugPrint('Successfully installed the sketch');
+    }
+    // The call to get the version failed
+    catch (e) {
+      debugPrint('Failed to install the sketch with error, $e');
     }
   }
 }

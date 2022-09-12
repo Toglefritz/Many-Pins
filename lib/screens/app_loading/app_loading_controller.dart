@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:many_pins/screens/update_index/update_index_route.dart';
 import 'package:many_pins/services/arduino_cli/arduino_cli.dart';
 import 'package:many_pins/services/arduino_cli/models/arduino_cli_version.dart';
 import 'app_loading_route.dart';
@@ -21,7 +22,10 @@ class AppLoadingController extends State<AppLoadingRoute> {
     // A null value indicates that the Arduino CLI is not installed
     if (versionInfo != null) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
-        Navigator.pushNamed(context, '/update_index');
+        Navigator.pushNamed(
+          context,
+          UpdateIndexRoute.routeName,
+        );
       });
     } else {
       // TODO show Arduino CLI error

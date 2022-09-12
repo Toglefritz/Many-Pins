@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:many_pins/screens/firmware_upload_intro/firmware_upload_intro_route.dart';
 import '../../components/brightness_toggle.dart';
 import '../../services/arduino_cli/arduino_cli.dart';
 import '../../services/arduino_cli/models/serial_device.dart';
@@ -75,7 +76,8 @@ class AvailablePortsSelectionView extends StatelessWidget {
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
-                        onTap: () => Navigator.pushNamed(context, '/firmware_upload', arguments: devices.data?[index]),
+                        onTap: () => Navigator.pushNamed(context, FirmwareUploadIntroRoute.routeName,
+                            arguments: devices.data?[index]),
                         child: DiscoveredDevice(device: devices.data?[index]),
                       );
                     },

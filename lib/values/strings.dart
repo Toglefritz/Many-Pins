@@ -19,6 +19,8 @@ class Strings {
   static const String getStarted = 'Get Started';
   static const String initializing = 'Initializing';
   static const String installArduinoCli = 'Install Arduino CLI';
+  static const String installingCore = 'Installing core';
+  static const String installingCoreTitle = 'Install Core';
   static const String moreDetails = 'More details';
   static const String noPorts = 'No devices found';
   static const String openEnvironmentVariables = 'Open Environment Variables';
@@ -40,5 +42,6 @@ class Strings {
   static const String updatingArduinoCliIndex = 'Updating Arduino CLI Index';
   static const String updatingCliIndex = 'Updating CLI index...';
   static const String upload = 'Upload';
+  static const String uploadingFirmware = 'Uploading firmware...';
   static const String verifyInstallation = 'Verify installation';
 }

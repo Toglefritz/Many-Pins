@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:many_pins/screens/available_ports_selection/available_ports_selection_route.dart';
 import '../../services/arduino_cli/arduino_cli.dart';
 import 'update_index_route.dart';
 import 'update_index_view.dart';
@@ -18,7 +19,10 @@ class UpdateIndexController extends State<UpdateIndexRoute> {
     await ArduinoCLI.updateCliIndex();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Navigator.pushReplacementNamed(context, '/available_ports_selection');
+      Navigator.pushReplacementNamed(
+        context,
+        AvailablePortsSelectionRoute.routeName,
+      );
     });
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:many_pins/screens/available_ports_selection/available_ports_selection_route.dart';
 
 /// A button used to refresh the list of available serial ports
 class RefreshButton extends StatelessWidget {
@@ -12,7 +13,7 @@ class RefreshButton extends StatelessWidget {
       padding: const EdgeInsets.only(right: 20),
       child: IconButton(
         icon: const Icon(Icons.refresh),
-        onPressed: () => Navigator.pushReplacementNamed(context, '/available_ports_selection'),
+        onPressed: () => Navigator.pushReplacementNamed(context, AvailablePortsSelectionRoute.routeName),
       ),
     );
   }
