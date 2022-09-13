@@ -4,8 +4,9 @@ class FQBN {
   final String? architecture;
   final String? boardId;
   final String? core;
+  final String? full;
 
-  FQBN({this.name, this.architecture, this.boardId, this.core});
+  FQBN({this.name, this.architecture, this.boardId, this.core, this.full});
 
   factory FQBN.fromBoardList(String boardListFQBN) {
     // Split the FQBN into its individual parts
@@ -23,6 +24,7 @@ class FQBN {
       architecture: architecture,
       boardId: boardId,
       core: core,
+      full: boardListFQBN,
     );
   }
 }

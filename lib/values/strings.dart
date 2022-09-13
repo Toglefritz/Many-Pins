@@ -9,6 +9,8 @@ class Strings {
   static const String checkingArduinoCli = 'Checking Arduino CLI...';
   static const String cliNotInstalledExplainer =
       'It appears that the Arduino CLI is not available. We\'re going to need that so let\'s get it installed.';
+  static const String compileSketch = 'Compile sketch';
+  static const String compilingSketch = 'Compiling sketch...';
   static const String download = 'Download';
   static const String downloadCli = 'First, download the CLI.';
   static const String editPathInstructions = 'Edit PATH Instructions';

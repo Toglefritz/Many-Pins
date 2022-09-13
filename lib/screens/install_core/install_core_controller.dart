@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:many_pins/screens/compile_sketch/compile_sketch_route.dart';
 import 'package:many_pins/services/arduino_cli/arduino_cli.dart';
 import 'install_core_route.dart';
 import 'install_core_view.dart';
 
-/// Controller for [FirmwareUploadIntroRoute].
+/// Controller for [InstallCoreRoute].
 class InstallCoreController extends State<InstallCoreRoute> {
-  bool firmwareUploading = false;
-
   @override
   void initState() {
     installCore();
@@ -22,7 +21,11 @@ class InstallCoreController extends State<InstallCoreRoute> {
 
       if (installationSuccessful) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          // TODO Navigator.pushNamed(context, CompileSketch.routeName,);
+          Navigator.pushNamed(
+            context,
+            CompileSketchRoute.routeName,
+            arguments: widget.device,
+          );
         });
       }
     }

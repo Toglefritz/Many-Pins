@@ -5,8 +5,6 @@ import 'firmware_upload_intro_view.dart';
 
 /// Controller for [FirmwareUploadIntroRoute].
 class FirmwareUploadIntroController extends State<FirmwareUploadIntroRoute> {
-  bool firmwareUploading = false;
-
   /// Start the firmware upload process via an Arduino CLI command
   void beginFirmwareUpload() {
     Navigator.pushReplacementNamed(

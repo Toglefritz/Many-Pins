@@ -17,12 +17,12 @@ class ArduinoCLI {
 
   /// Starts a process with the Arduino CLI with the provided command and provides the response in JSON format
   /// or rethrows exceptions
-  static Future<dynamic> runCliProcess(String command) async {
+  static Future<dynamic> runCliProcess(String command, bool formatted) async {
     try {
       Directory workingDirectory = Directory.current;
 
       ProcessResult result = await Process.run(
-        '$command --format json',
+        formatted ? '$command --format json' : command,
         [],
         runInShell: true,
         workingDirectory: workingDirectory.absolute.path,
@@ -31,9 +31,13 @@ class ArduinoCLI {
         },
       );
 
-      dynamic responseJson = jsonDecode(result.stdout);
+      if (formatted) {
+        dynamic responseJson = jsonDecode(result.stdout);
 
-      return responseJson;
+        return responseJson;
+      } else {
+        return result;
+      }
     } catch (e) {
       rethrow;
     }
@@ -42,7 +46,7 @@ class ArduinoCLI {
   /// Check the Arduino CLI version
   static Future<ArduinoCLIVersion?> checkArduinoCliVersion() async {
     try {
-      Map<String, dynamic> responseJson = await runCliProcess('arduino-cli version') as Map<String, dynamic>;
+      Map<String, dynamic> responseJson = await runCliProcess('arduino-cli version', true) as Map<String, dynamic>;
 
       debugPrint('Retrieved Arduino CLI version: $responseJson');
 
@@ -82,7 +86,7 @@ class ArduinoCLI {
   /// Get a list of serial ports available on the host machine on which an Arduino-compatible board is detected
   static Future<List<SerialDevice>?> getSerialPorts() async {
     try {
-      List<dynamic> responseJson = await runCliProcess('arduino-cli board list') as List<dynamic>;
+      List<dynamic> responseJson = await runCliProcess('arduino-cli board list', true) as List<dynamic>;
 
       debugPrint('Retrieved serial ports list: $responseJson');
 
@@ -109,7 +113,9 @@ class ArduinoCLI {
   /// Installs a board definition core for the Arduino CLI
   static Future<bool> installCore(String fqbn) async {
     try {
-      await runCliProcess('arduino-cli core install $fqbn');
+      debugPrint('Installing the $fqbn core definition');
+
+      await runCliProcess('arduino-cli core install $fqbn', false);
 
       debugPrint('Successfully installed the $fqbn core definition');
 
@@ -123,23 +129,27 @@ class ArduinoCLI {
     }
   }
 
-  /// Installs a board definition core for the Arduino CLI
-  static Future<void> compileSketch(SerialDevice targetDevice) async {
+  /// Compiles the sketch for the target module
+  static Future<bool> compileSketch(String fqbn) async {
     try {
-      await runCliProcess('arduino-cli compile --fqbn ${targetDevice.matchingBoards?[0].fqbn} $sketchPath');
+      await runCliProcess('arduino-cli compile --fqbn $fqbn $sketchPath', false);
 
       debugPrint('Successfully compiled the sketch');
+
+      return true;
     }
     // The call to get the version failed
     catch (e) {
       debugPrint('Failed to compile the sketch with error, $e');
+
+      return false;
     }
   }
 
   /// Uploads the Many Pins companion Arduino sketch to the target MCU
   static Future<void> uploadFirmware(SerialDevice targetDevice) async {
     try {
-      await runCliProcess('arduino-cli board list');
+      await runCliProcess('arduino-cli board list', false);
 
       debugPrint('Successfully installed the sketch');
     }

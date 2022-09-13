@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../components/brightness_toggle.dart';
+import '../../components/loading_indicator.dart';
 import '../../values/strings.dart';
 import 'update_index_controller.dart';
 
@@ -21,12 +22,9 @@ class UpdateIndexView extends StatelessWidget {
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircularProgressIndicator(
-              color: Theme.of(context).primaryColor,
-              strokeWidth: 4,
-            ),
-            const Padding(
+          children: const [
+            LoadingIndicator(),
+            Padding(
               padding: EdgeInsets.symmetric(vertical: 20),
               child: Text(Strings.updatingCliIndex),
             ),

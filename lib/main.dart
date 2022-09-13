@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:many_pins/screens/app_loading/app_loading_route.dart';
 import 'package:many_pins/screens/available_ports_selection/available_ports_selection_route.dart';
+import 'package:many_pins/screens/compile_sketch/compile_sketch_route.dart';
 import 'package:many_pins/screens/firmware_upload_intro/firmware_upload_intro_route.dart';
 import 'package:many_pins/screens/install_core/install_core_route.dart';
 import 'package:many_pins/screens/update_index/update_index_route.dart';
@@ -76,6 +77,16 @@ class ManyPinsAppState extends State<ManyPinsApp> {
                   return MaterialPageRoute(
                     builder: (context) {
                       return InstallCoreRoute(
+                        device: arguments,
+                      );
+                    },
+                  );
+                case CompileSketchRoute.routeName:
+                  final arguments = settings.arguments as SerialDevice;
+
+                  return MaterialPageRoute(
+                    builder: (context) {
+                      return CompileSketchRoute(
                         device: arguments,
                       );
                     },

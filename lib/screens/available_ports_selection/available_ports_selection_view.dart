@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:many_pins/screens/firmware_upload_intro/firmware_upload_intro_route.dart';
 import '../../components/brightness_toggle.dart';
+import '../../components/loading_indicator.dart';
 import '../../services/arduino_cli/arduino_cli.dart';
 import '../../services/arduino_cli/models/serial_device.dart';
 import '../../values/strings.dart';
@@ -88,11 +89,8 @@ class AvailablePortsSelectionView extends StatelessWidget {
               return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CircularProgressIndicator(
-                      color: Theme.of(context).primaryColor,
-                      strokeWidth: 4,
-                    ),
+                  children: const [
+                    LoadingIndicator(),
                   ],
                 ),
               );

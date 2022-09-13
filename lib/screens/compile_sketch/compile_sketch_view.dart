@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import '../../components/brightness_toggle.dart';
 import '../../components/loading_indicator.dart';
 import '../../values/strings.dart';
-import 'install_core_controller.dart';
+import 'compile_sketch_controller.dart';
 
-/// View for [InstallCoreRoute].
-class InstallCoreView extends StatelessWidget {
-  final InstallCoreController state;
+/// View for [CompileSketchRoute].
+class CompileSketchView extends StatelessWidget {
+  final CompileSketchController state;
 
-  const InstallCoreView(this.state, {Key? key}) : super(key: key);
+  const CompileSketchView(this.state, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(Strings.installingCoreTitle),
+        title: const Text(Strings.compileSketch),
         actions: const [
           BrightnessToggle(),
         ],
@@ -26,13 +26,13 @@ class InstallCoreView extends StatelessWidget {
             padding: const EdgeInsets.only(top: 40),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Padding(
+              children: const [
+                Padding(
                   padding: EdgeInsets.only(right: 20),
                   child: LoadingIndicator(),
                 ),
                 Text(
-                  '${Strings.installingCore}: ${state.widget.device.matchingBoards?[0].fqbn?.name}:${state.widget.device.matchingBoards?[0].fqbn?.architecture}...',
+                  Strings.compilingSketch,
                 )
               ],
             ),
