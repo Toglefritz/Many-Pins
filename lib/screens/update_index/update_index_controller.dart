@@ -8,7 +8,7 @@ import 'update_index_view.dart';
 class UpdateIndexController extends State<UpdateIndexRoute> {
   @override
   void initState() {
-    // Run an Arduino CLI command to check if the tool is available
+    // Run an Arduino CLI command to update the CLI index
     updateCliIndex();
 
     super.initState();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:many_pins/services/arduino_cli/arduino_cli.dart';
+import '../upload_firmware/upload_firmware_route.dart';
 import 'compile_sketch_route.dart';
 import 'compile_sketch_view.dart';
 
@@ -20,7 +21,11 @@ class CompileSketchController extends State<CompileSketchRoute> {
 
       if (compilationSuccessful) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
-          // TODO Navigator.pushNamed(context, CompileSketch.routeName,);
+          Navigator.pushReplacementNamed(
+            context,
+            UploadFirmwareRoute.routeName,
+            arguments: widget.device,
+          );
         });
       }
     }

@@ -137,9 +137,7 @@ class ArduinoCLI {
       debugPrint('Successfully compiled the sketch');
 
       return true;
-    }
-    // The call to get the version failed
-    catch (e) {
+    } catch (e) {
       debugPrint('Failed to compile the sketch with error, $e');
 
       return false;
@@ -149,13 +147,13 @@ class ArduinoCLI {
   /// Uploads the Many Pins companion Arduino sketch to the target MCU
   static Future<void> uploadFirmware(SerialDevice targetDevice) async {
     try {
-      await runCliProcess('arduino-cli board list', false);
+      await runCliProcess(
+          'arduino-cli upload -p ${targetDevice.port} --fqbn ${targetDevice.matchingBoards![0].fqbn?.full} $sketchPath',
+          false);
 
-      debugPrint('Successfully installed the sketch');
-    }
-    // The call to get the version failed
-    catch (e) {
-      debugPrint('Failed to install the sketch with error, $e');
+      debugPrint('Successfully uploaded the sketch');
+    } catch (e) {
+      debugPrint('Failed to upload the sketch with error, $e');
     }
   }
 }

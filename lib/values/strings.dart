@@ -44,6 +44,7 @@ class Strings {
   static const String updatingArduinoCliIndex = 'Updating Arduino CLI Index';
   static const String updatingCliIndex = 'Updating CLI index...';
   static const String upload = 'Upload';
+  static const String uploadFirmware = 'Upload firmware';
   static const String uploadingFirmware = 'Uploading firmware...';
   static const String verifyInstallation = 'Verify installation';
 }

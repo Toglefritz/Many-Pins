@@ -5,6 +5,7 @@ import 'package:many_pins/screens/compile_sketch/compile_sketch_route.dart';
 import 'package:many_pins/screens/firmware_upload_intro/firmware_upload_intro_route.dart';
 import 'package:many_pins/screens/install_core/install_core_route.dart';
 import 'package:many_pins/screens/update_index/update_index_route.dart';
+import 'package:many_pins/screens/upload_firmware/upload_firmware_route.dart';
 import 'package:many_pins/services/arduino_cli/models/serial_device.dart';
 import 'package:many_pins/theme/theme_preference_provider.dart';
 import 'package:many_pins/theme/themes.dart';
@@ -87,6 +88,16 @@ class ManyPinsAppState extends State<ManyPinsApp> {
                   return MaterialPageRoute(
                     builder: (context) {
                       return CompileSketchRoute(
+                        device: arguments,
+                      );
+                    },
+                  );
+                case UploadFirmwareRoute.routeName:
+                  final arguments = settings.arguments as SerialDevice;
+
+                  return MaterialPageRoute(
+                    builder: (context) {
+                      return UploadFirmwareRoute(
                         device: arguments,
                       );
                     },
