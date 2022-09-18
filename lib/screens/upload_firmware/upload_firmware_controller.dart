@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../services/arduino_cli/arduino_cli.dart';
+import '../pin_control/pin_control_route.dart';
 import 'upload_firmware_route.dart';
 import 'upload_firmware_view.dart';
 
@@ -17,12 +18,13 @@ class UploadFirmwareController extends State<UploadFirmwareRoute> {
   Future<void> uploadFirmware() async {
     await ArduinoCLI.uploadFirmware(widget.device);
 
-    /*WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       Navigator.pushReplacementNamed(
         context,
-        AvailablePortsSelectionRoute.routeName,
+        PinControlRoute.routeName,
+        arguments: widget.device,
       );
-    });*/
+    });
   }
 
   @override

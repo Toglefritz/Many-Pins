@@ -14,7 +14,7 @@ dependencies:
   # Used to manage the app icon
   flutter_launcher_icons: ^0.10.0
   # A Flutter wrapper for the libserial library
-  flutter_libserialport: ^0.2.3
+  # flutter_libserialport: ^0.3.0
   # Stores settings that persist between sessions
   shared_preferences: ^2.0.15
   # A wrapper around InheritedWidget
@@ -23,7 +23,7 @@ dependencies:
   google_fonts: ^3.0.1
   # Used to launch URLs and other links
   url_launcher: ^6.1.5
-  url_launcher_windows: ^2.0.2
+  url_launcher_windows: ^3.0.1
   # Used to access common system locations
   path_provider: ^2.0.11
 
@@ -38,6 +38,7 @@ flutter:
 
   assets:
     - assets/
+    - assets/board_images
 
 flutter_icons:
   windows:

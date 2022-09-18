@@ -17,7 +17,7 @@ class ClearButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         elevation: 0,
-        primary: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         side: BorderSide(
           width: 2.0,
           color: Theme.of(context).primaryColor,
