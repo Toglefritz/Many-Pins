@@ -33,6 +33,7 @@ class Strings {
       'Start by opening your System Properties to edit your PATH. Do this by searching for "environment" in the task bar.';
   static const String pathVariableDescription =
       'The system\'s PATH environment lists the locations of executable files so that they can be used from the command line without typing the full file path every time.';
+  static const String pinControlTitle = 'GPIO Pin Control';
   static const String scanAgain = 'Scan again';
   static const String selectSystemPath = 'Select system path';
   static const String selectSystemPathDescription =
