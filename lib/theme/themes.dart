@@ -29,6 +29,7 @@ class Themes {
         useMaterial3: true,
         brightness: Brightness.light,
         primaryColor: Colors.black54,
+        primaryColorDark: Colors.black,
         fontFamily: GoogleFonts.robotoMono().fontFamily,
         textTheme: const TextTheme(
           bodyText1: TextStyle(fontSize: 16.0),
