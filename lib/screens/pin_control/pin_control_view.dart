@@ -2,10 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:many_pins/screens/pin_control/components/pin_button.dart';
 import '../../components/brightness_toggle.dart';
 import '../../values/strings.dart';
+import 'components/pin_control_drawer.dart';
 import 'models/side.dart';
 import 'pin_control_controller.dart';
 
 /// View for [PinControlRoute].
+///
+/// This view consists of three major parts:
+///   1.  In the center of the view is an image of the target microcontroller board. This image exists purely for
+///       visual reference.
+///   2.  Along either side of the microcontroller image are collections of [PinButton]s, one for each of the
+///       microcontroller's GPIO pins. These are the buttons that a user selects to send commands to control the
+///       GPIO pin corresponding to the selected button.
+///   3.  The [Scaffold] in this view has two drawers, one on the left and one on the right. These drawers open when
+///       one of the [PinButton]s is selected. The [Drawer]s contain forms that allow the user to select the
+///       parameters of the command to be sent to the microcontroller.
 class PinControlView extends StatelessWidget {
   final PinControlController state;
 
@@ -36,7 +47,7 @@ class PinControlView extends StatelessWidget {
           left: state.pinList![index].side == Side.left ? 0 : imageWidth - 70, // 70 is the width of the pin buttons
           top: imageHeight * state.pinList![index].top,
           child: PinButton(
-            onPressed: () => {},
+            onPressed: () => state.sendPinControlCommand(state.pinList![index]),
             text: state.pinList![index].label,
             side: state.pinList![index].side,
           ),
@@ -45,17 +56,17 @@ class PinControlView extends StatelessWidget {
     }
 
     return Scaffold(
+      key: state.scaffoldKey,
       appBar: AppBar(
         title: const Text(Strings.pinControlTitle),
         actions: const [
           BrightnessToggle(),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
+      body: CustomScrollView(
+        slivers: [
+          SliverFillRemaining(
+            child: Center(
               child: SizedBox(
                 width: imageWidth,
                 height: imageHeight,
@@ -64,9 +75,11 @@ class PinControlView extends StatelessWidget {
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
+      drawer: PinControlDrawer(state: state),
+      endDrawer: PinControlDrawer(state: state),
     );
   }
 }

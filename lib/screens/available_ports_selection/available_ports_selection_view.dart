@@ -71,17 +71,20 @@ class AvailablePortsSelectionView extends StatelessWidget {
                 return const NoPortsWarning();
               } else {
                 return Center(
-                  child: ListView.builder(
-                    itemCount: devices.data?.length,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (BuildContext context, int index) {
-                      return GestureDetector(
-                        onTap: () => Navigator.pushNamed(context, FirmwareUploadIntroRoute.routeName,
-                            arguments: devices.data?[index]),
-                        child: DiscoveredDevice(device: devices.data?[index]),
-                      );
-                    },
+                  child: SizedBox(
+                    height: 235,
+                    child: ListView.builder(
+                      itemCount: devices.data?.length,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (BuildContext context, int index) {
+                        return GestureDetector(
+                          onTap: () => Navigator.pushNamed(context, FirmwareUploadIntroRoute.routeName,
+                              arguments: devices.data?[index]),
+                          child: DiscoveredDevice(device: devices.data?[index]),
+                        );
+                      },
+                    ),
                   ),
                 );
               }
