@@ -42,8 +42,8 @@
 
    or, in response to read operations, the program will return the value of the
    digitalRead or analogRead command. For analog reads, the int value of the
-   read will be returned and for digital reads, a String value of "high" or
-   "low" will be returned:
+   read will be returned and for digital reads, a int value of 1 (HIGH) or
+   0 (LOW) will be returned:
 
     {
       "result": 255
@@ -52,7 +52,7 @@
     or
 
     {
-      "result": "low"
+      "result": 0
     }
 */
 
