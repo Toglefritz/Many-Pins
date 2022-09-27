@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../theme/theme_preference_provider.dart';
 
-/// A button used to toggle dark mode on and off
+/// A button used to toggle dark mode on and off.
 class BrightnessToggle extends StatelessWidget {
   const BrightnessToggle({
     Key? key,

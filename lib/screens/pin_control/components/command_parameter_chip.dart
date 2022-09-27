@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../pin_control_controller.dart';
 
-/// A choice in the selection of parameters for GPIO control commands
+/// A choice in the selection of parameters for GPIO control commands.
 class CommandParameterChip extends StatelessWidget {
   const CommandParameterChip({
     Key? key,

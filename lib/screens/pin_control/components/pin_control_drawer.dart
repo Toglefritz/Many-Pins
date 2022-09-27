@@ -4,8 +4,8 @@ import '../../../values/strings.dart';
 import '../pin_control_controller.dart';
 import 'command_parameter_chip.dart';
 
-/// A [Drawer] containing a [Form] used to select the parameters used for a control command sent via serial
-/// to a microcontroller board
+/// A [Drawer] containing UI elements used to select the parameters used for a control command sent via serial
+/// to a microcontroller board.
 class PinControlDrawer extends StatelessWidget {
   const PinControlDrawer({
     Key? key,

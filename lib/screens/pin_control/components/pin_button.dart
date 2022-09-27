@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/side.dart';
 
-/// A button representing an individual GPIO pin on a microcontroller board
+/// A button representing an individual GPIO pin on a microcontroller board.
 class PinButton extends StatelessWidget {
   const PinButton({
     Key? key,

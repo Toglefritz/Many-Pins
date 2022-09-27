@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Displays a spinner while an asynchronous operation is in progress
+/// Displays a spinner while an asynchronous operation is in progress.
 class LoadingIndicator extends StatelessWidget {
   const LoadingIndicator({
     Key? key,

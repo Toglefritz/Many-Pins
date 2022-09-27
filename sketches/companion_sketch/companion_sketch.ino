@@ -162,7 +162,7 @@ void loop() {
     debugPrintln(command);
   
 
-        // Allocate memory for the JSON deserialization
+    // Allocate memory for the JSON deserialization
     StaticJsonDocument<96> doc;
 
     // Read an deserialize the message
@@ -210,7 +210,6 @@ void loop() {
     }
 
     // Clear the serial buffer
-    debugPrintln("");
     while (Serial.available() > 0)
         Serial.read();
   }

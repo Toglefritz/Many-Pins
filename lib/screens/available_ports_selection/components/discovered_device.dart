@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../services/arduino_cli/models/serial_device.dart';
 
-/// Shows information about an Arduino-compatible device detected on a host device serial port
+/// Shows information about an Arduino-compatible device detected on a host device serial port.
 class DiscoveredDevice extends StatelessWidget {
   const DiscoveredDevice({
     Key? key,
