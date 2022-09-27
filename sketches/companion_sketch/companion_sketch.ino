@@ -1,4 +1,5 @@
-#include <Arduino_JSON.h>
+#include <ArduinoJson.h>
+#include <ArduinoJson.hpp>
 
 /*
   Many Pins
@@ -18,7 +19,7 @@
   content for performing write operations:
 
     {
-      "pin_number": 1,
+      "pin": 1,
       "cmd": "write",
       "params": "digital",
       "value": "high"
@@ -27,7 +28,7 @@
     or, for performing read operations:
 
     {
-      "pin_number": 1,
+      "pin": 1,
       "cmd": "read",
       "params": "digital"
     }
@@ -60,167 +61,157 @@
 
 /// Provides initial configuration for the sketch
 void setup() {
-  Serial.begin(115200);  // Set up Serial library at 115200 bps
+  Serial.begin(9600);
+  while (!Serial) continue;
 }
 
-/// Sends prints over serial when debugging is enabled
-void debugPrint(String message) {
-  if(DEBUG) {
+/// Sends prints over serial when debugging is enabled with carriage returns
+void debugPrintln(String message) {
+  if (DEBUG) {
     Serial.println(message);
   }
 }
 
-/// Verifies that JSON received in the serial message conforms to the expected
-/// format by checking that the message contains the expected fields
-bool verifySchema(JSONVar message) {
-  if (message.hasOwnProperty("pin_number") && message.hasOwnProperty("cmd") &&
-      message.hasOwnProperty("params")) {
-    return true;
-  } else {
-    return false;
+/// Sends prints over serial when debugging is enabled
+void debugPrint(String message) {
+  if (DEBUG) {
+    Serial.print(message);
   }
 }
 
 /// In response to an analog read command received over serial, performs the requested
 /// read operation and returns the result to be sent back via serial
-String processAnalogReadCommand(int pinNumber) {
-  debugPrint("DEBUG processing analog read command");
-  
+void processAnalogReadCommand(int pinNumber) {
+  debugPrintln("Processing analog read command");
+
   // Set the pinMode for the target pin
   pinMode(pinNumber, OUTPUT);
-  
+
   // Perform the analogRead to get the int value
   int readValue = analogRead(pinNumber);
 
   // Create a JSON string to send back over serial
-  JSONVar reaponseJson;
+  DynamicJsonDocument reaponseJson(24);
   reaponseJson["result"] = readValue;
-  String response = JSON.stringify(reaponseJson);
-
-  return response;
+  serializeJson(reaponseJson, Serial);
 }
 
 /// In response to a digital read command received over serial, performs the requested
 /// read operation and returns the result to be sent back via serial
-String processDigitalReadCommand(int pinNumber) {
-  debugPrint("DEBUG processing digital read command");
-  
+void processDigitalReadCommand(int pinNumber) {
+  debugPrintln("Processing digital read command");
+
   // Set the pinMode for the target pin
   pinMode(pinNumber, OUTPUT);
-  
+
   // Perform the analogRead to get the int value
   int readValue = digitalRead(pinNumber);
 
   // Create a JSON string to send back over serial
-  JSONVar reaponseJson;
+  DynamicJsonDocument reaponseJson(24);
   reaponseJson["result"] = readValue;
-  String response = JSON.stringify(reaponseJson);
-
-  return response;
+  serializeJson(reaponseJson, Serial);
 }
 
 /// In response to an analog write command received over serial, performs the requested
 /// write operation and returns the result, containing a boolean for success/failure ia serial
-String processAnalogWriteCommand(int pinNumber, int value) {
-  debugPrint("DEBUG processing analog write command");
-  
+void processAnalogWriteCommand(int pinNumber, int value) {
+  debugPrintln("Processing analog write command");
+
   // Set the pinMode for the target pin
   pinMode(pinNumber, INPUT);
-  
-  // Perform the analogWRite command 
+
+  // Perform the analogWRite command
   analogWrite(pinNumber, value);
 
   // Create a JSON string to send back over serial
-  JSONVar reaponseJson;
+  DynamicJsonDocument reaponseJson(24);
   reaponseJson["result"] = true;
-  String response = JSON.stringify(reaponseJson);
-
-  return response;
+  serializeJson(reaponseJson, Serial);
 }
 
 /// In response to a digital write command received over serial, performs the requested
 /// write operation and returns the result, containing a boolean for success/failure ia serial
-String processDigitalWriteCommand(int pinNumber, String value) {
-  debugPrint("DEBUG processing digital write command");
-  
-   // Set the pinMode for the target pin
+void processDigitalWriteCommand(int pinNumber, String value) {
+  debugPrintln("Processing digital write command");
+
+  // Set the pinMode for the target pin
   pinMode(pinNumber, INPUT);
-  
-  // Perform the analogWRite command 
+
+  // Perform the analogWRite command
   digitalWrite(pinNumber, value == "high" ? HIGH : LOW);
 
   // Create a JSON string to send back over serial
-  JSONVar reaponseJson;
+  DynamicJsonDocument reaponseJson(24);
   reaponseJson["result"] = true;
-  String response = JSON.stringify(reaponseJson);
-
-  return response;
+  serializeJson(reaponseJson, Serial);
 }
 
 /// Runs consecutively, repeatedly for the live of the program
 void loop() {
   // Wait for a message to become available over the serial connection
   if (Serial.available()) {
-    String messageContents = Serial.readString();  // Read the serial message
+    // Pause to make sure the full command has been received
+    delay(100);
 
-    debugPrint("\nDEBUG received serial message");
+    // Read the command sent over serial
+    String command = Serial.readString();
 
-    JSONVar messageJson = JSON.parse(messageContents);  // Get a JSONVar object from the message received
+    debugPrintln("");
+    debugPrint("Received command: ");
+    debugPrintln(command);
+  
 
-    // Make sure the serial message the expected fields
-    if (verifySchema(messageJson)) {
-      debugPrint("DEBUG serial command verified");
-      
+        // Allocate memory for the JSON deserialization
+    StaticJsonDocument<96> doc;
+
+    // Read an deserialize the message
+    DeserializationError err = deserializeJson(doc, command);
+
+    // Check that the deserialization was successful
+    if (err == DeserializationError::Ok) {
+      debugPrintln("Successfully deserialized command");
+
       // Check if this is a read command
-      if ((const char*) messageJson["cmd"] == "read") {
-        // Check if this is an analog read command
-        if ((const char*) messageJson["params"] == "analog") {
-          // Get the response to the analog read command
-          String response = processAnalogReadCommand((int) messageJson["pin_number"]);
+      if (doc["cmd"] == "read") {
+        if (doc["params"] == "analog") {
+          debugPrintln("Recognized analog read command");
 
-          // Send the response back over serial
-          Serial.println(response);
+          // Send the response to the analog read command
+          processAnalogReadCommand(doc["pin"]);
         }
-        // The command is a digital read command 
-        else {
-          // Get the response to the digital read command
-          String response = processDigitalReadCommand((int) messageJson["pin_number"]);
+        else if (doc["params"] == "digital") {
+          debugPrintln("Recognized digital read command");
 
-          // Send the response back over serial
-          Serial.println(response);
+          // Send the response to the digital read command
+          processDigitalReadCommand(doc["pin"]);
         }
       }
-      // The command is a write command
+      // Check if this is a write command
+      else if (doc["cmd"] == "write") {
+        debugPrintln("Received write command");
+        if (doc["params"] == "analog") {
+          debugPrintln("Recognized analog write command");
+
+          // Send the response to the analog write command
+          processAnalogWriteCommand(doc["pin"], doc["value"]);
+        }
+        else if (doc["params"] == "digital") {
+          debugPrintln("Recognized digital write command");
+
+          // Send the response to the digital write command
+          processDigitalWriteCommand(doc["pin"], doc["value"]);
+        }
+      }
+      // The command was not recognized
       else {
-        // Check if this is an analog read command
-        if((const char*) messageJson["params"] == "analog") {
-          // Perform the write command
-          String response = processAnalogWriteCommand((int) messageJson["pin_number"], (int)messageJson["value"]);
-
-          // Send the response back over serial
-          Serial.println(response);
-        }
-        // The command is a digital write command
-        else {
-          // Perform the write command
-          String response = processDigitalWriteCommand((int) messageJson["pin_number"], (const char*) messageJson["value"]);
-
-          // Send the response back over serial
-          Serial.println(response);
-        }
+        debugPrintln("Failed to recognize command");
       }
     }
-    // The format of the serial message could not be verified
-    else {
-      debugPrint("DEBUG failed to verify JSON payload");
-      
-      JSONVar errorJson;
-      errorJson["error"] = "Failed to verify JSON payload";
-      String error = JSON.stringify(errorJson);
-      
-      Serial.println(error);
-    }
 
-    Serial.flush();
+    // Clear the serial buffer
+    debugPrintln("");
+    while (Serial.available() > 0)
+        Serial.read();
   }
 }

@@ -147,11 +147,11 @@ class ArduinoCLI {
   /// Uploads the Many Pins companion Arduino sketch to the target MCU
   static Future<void> uploadFirmware(SerialDevice targetDevice) async {
     try {
-      await runCliProcess(
+      dynamic response = await runCliProcess(
           'arduino-cli upload -p ${targetDevice.port} --fqbn ${targetDevice.matchingBoards![0].fqbn?.full} $sketchPath',
           false);
 
-      debugPrint('Successfully uploaded the sketch');
+      debugPrint('Successfully uploaded the sketch: $response');
     } catch (e) {
       debugPrint('Failed to upload the sketch with error, $e');
     }
